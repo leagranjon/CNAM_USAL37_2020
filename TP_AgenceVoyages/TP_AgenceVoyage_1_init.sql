@@ -3,26 +3,31 @@
 -- DML (INSERT UPDATE DELETE)
 -- DQL (SELECT)
 
+
+
 DROP DATABASE IF EXISTS usal37_agence;
 
-CREATE DATABASE usal37_agence DEFAULT CHARACTER SET 'utf8';
+CREATE DATABASE usal37_agence DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
 
 USE usal37_agence;
 
+/*  CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' */
 
 CREATE TABLE countries 
 (
 	country_code CHAR(2) PRIMARY KEY,
-    country_name VARCHAR(128) NOT NULL
+    country_name VARCHAR(128) NOT NULL 
 );
 
 CREATE TABLE cities
 (
 	city_code INT AUTO_INCREMENT,
-    city_name VARCHAR(128) NOT NULL,
-    country_code CHAR(2) NOT NULL,
+    city_name VARCHAR(128) NOT NULL UNIQUE,
+    country_code CHAR(2) NOT NULL DEFAULT 'FR',
     PRIMARY KEY (city_code)
 );
+
+
 
 CREATE TABLE trips 
 (
@@ -34,8 +39,10 @@ CREATE TABLE trips
     trip_price DECIMAL(7,2) NOT NULL,
     trip_overview TEXT NOT NULL,
     trip_description MEDIUMTEXT NULL,
-    city_code INT NOT NULL
+    city_code INT NOT NULL,
+    INDEX(trip_title)
 );
+
 
 /*
 TINYINT    = 255 valeurs (-128 à +127)
@@ -91,6 +98,8 @@ VALUES
 ('Chernobyl', 'UA'),
 ('Édimbourg', 'GB'),
 ('Marrakech', 'MA');
+
+
 
 /* - Insérez les 5 voyages du PDF dans la table "trips"  */
 INSERT INTO trips 

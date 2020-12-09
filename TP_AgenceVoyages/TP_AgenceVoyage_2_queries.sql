@@ -3,6 +3,8 @@ USE usal37_agence;
 SELECT * FROM cities; 
 SELECT * FROM countries;
 
+SELECT * FROM trips WHERE trip_start > '2021-05-01';
+
 /* VILLES + PAYS */
 
 -- SELECT city_name, cities.country_code country_name FROM cities,countries;
