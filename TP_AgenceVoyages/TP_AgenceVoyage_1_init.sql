@@ -43,6 +43,30 @@ CREATE TABLE trips
     INDEX(trip_title)
 );
 
+CREATE TABLE themes 
+(
+	theme_code INT AUTO_INCREMENT,
+    theme_name VARCHAR(32) NOT NULL UNIQUE,
+    theme_description MEDIUMTEXT NULL,
+    PRIMARY KEY(theme_code)
+);
+
+CREATE TABLE trips_theme
+(
+	trip_code INT,
+    theme_code INT,
+    PRIMARY KEY (trip_code, theme_code)
+);
+
+
+
+CREATE TABLE services 
+(
+	service_code INT PRIMARY KEY AUTO_INCREMENT,
+    service_name VARCHAR(32) NOT NULL UNIQUE,
+    service_description MEDIUMTEXT NULL
+);
+
 
 /*
 TINYINT    = 255 valeurs (-128 à +127)
@@ -62,7 +86,7 @@ ADD
 FOREIGN KEY (country_code) REFERENCES countries(country_code);
 */
 
-/* Modification de la table cities (ALTER)
+/* Modification de la table cities (ALTER) 
  * Ajout d'une contrainte de clé étrangère */ 
 ALTER TABLE cities 
 ADD 
@@ -120,7 +144,26 @@ VALUES
 ('Destination Vert-Bouteille', 	18,  '2020-11-20 06:45:00', '2020-11-26 13:00:00', 849,  'T4 overview', NULL, 8),
 ('Europa Park', 				568, '2019-05-15 08:30:00', '2019-05-17 18:00:00', 99,   'T5 overview', NULL, 3);
 
+INSERT INTO themes 
+(theme_name) 
+VALUES 
+('Montagne'),
+('Plage'),
+('Ski'),
+('Balnéo'),
+('Aventure');
 
-select * from cities join countries on cities.country_code = countries.country_code
+
+INSERT INTO trips_theme
+(trip_code, theme_code)
+VALUES
+(1, 2), /* 1-2 */
+(1, 3), /* 1-3 */
+(59, 2); /* 3-2 */
+
+
+
+select * from cities 
+join countries on cities.country_code = countries.country_code
 
 
