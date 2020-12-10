@@ -3,7 +3,7 @@ USE usal37_agence;
 SELECT * FROM cities; 
 SELECT * FROM countries;
 
-SELECT * FROM trips WHERE trip_start > '2021-05-01';
+SELECT * FROM trips WHERE trip_start > '2020-05-01';
 
 /* VILLES + PAYS */
 
