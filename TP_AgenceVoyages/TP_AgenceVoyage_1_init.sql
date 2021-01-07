@@ -78,6 +78,8 @@ ALTER TABLE trips_services
 	ADD FOREIGN KEY (trip_code) REFERENCES trips(trip_code),
 	ADD CONSTRAINT TOTO23 FOREIGN KEY (service_code) REFERENCES services(service_code);
 
+
+
 /*
 TINYINT    = 255 valeurs (-128 à +127)
 SMALLINT   = 65535 valeurs (-32000 à +32000)

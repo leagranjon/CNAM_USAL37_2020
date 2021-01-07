@@ -36,3 +36,33 @@ FROM cities
 JOIN countries 
 ON cities.country_code = countries.country_code 
 WHERE country_name LIKE 'I%';
+
+
+
+
+/* afficher : les voyages avec le nom du client associé */
+SELECT * FROM trips 
+INNER JOIN orders ON trips.trip_code = orders.trip_code 
+INNER JOIN clients ON orders.client_id = clients.client_id
+;
+
+SELECT * FROM trips 
+RIGHT JOIN orders ON trips.trip_code = orders.trip_code 
+RIGHT JOIN clients ON orders.client_id = clients.client_id
+;
+
+SELECT * FROM clients 
+LEFT JOIN orders ON clients.client_id = orders.client_id 
+LEFT JOIN trips ON orders.trip_code = trips.trip_code
+;
+
+SELECT * FROM trips 
+LEFT JOIN orders ON trips.trip_code = orders.trip_code 
+RIGHT JOIN clients ON orders.client_id = clients.client_id
+;
+
+SELECT * FROM trips 
+RIGHT JOIN orders ON trips.trip_code = orders.trip_code 
+LEFT JOIN clients ON orders.client_id = clients.client_id
+;
+
