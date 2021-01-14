@@ -40,7 +40,7 @@ CREATE TABLE customers_cats
 
 ALTER TABLE customers 
 ADD 
-	CONSTRAINT fk_customers_customers_cats FOREIGN KEY (cat_id) REFERENCES customers_cats (cat_id);
+	CONSTRAINT fk_customers FOREIGN KEY (cat_id) REFERENCES customers_cats (cat_id);
 
 ALTER TABLE jobs
 ADD 
