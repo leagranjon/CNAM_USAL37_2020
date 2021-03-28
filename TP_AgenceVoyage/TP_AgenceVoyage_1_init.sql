@@ -74,9 +74,36 @@ CREATE TABLE trips_services
     PRIMARY KEY (trip_code, service_code)
 );
 
-ALTER TABLE trips_services
-	ADD FOREIGN KEY (trip_code) REFERENCES trips(trip_code),
-	ADD CONSTRAINT TOTO23 FOREIGN KEY (service_code) REFERENCES services(service_code);
+CREATE TABLE sales 
+(
+	com_code CHAR(5) PRIMARY KEY,
+    com_name VARCHAR(64),
+    com_password CHAR(60)
+);
+
+CREATE table clients 
+(
+	client_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_lastname VARCHAR(32) NOT NULL,
+    client_firstname VARCHAR(32) NOT NULL,
+    client_email VARCHAR(128) NOT NULL,
+    client_phone CHAR(16) NOT NULL,
+    client_added DATE NOT NULL,
+    client_password CHAR(60) NOT NULL,
+    com_code CHAR(5) NOT NULL, 
+    FOREIGN KEY (com_code) REFERENCES sales(com_code) 
+);
+
+CREATE TABLE orders 
+(
+	trip_code INT,
+    client_id INT,
+    order_quantity INT NOT NULL,
+    order_paid TINYINT(1) NULL,
+    PRIMARY KEY (trip_code, client_id)
+);
+
+
 
 
 
@@ -108,6 +135,14 @@ ALTER TABLE trips
 ADD 
 	CONSTRAINT fk_trips_cities FOREIGN KEY (city_code) REFERENCES cities(city_code);
 
+ALTER TABLE trips_services
+	ADD FOREIGN KEY (trip_code) REFERENCES trips(trip_code),
+	ADD CONSTRAINT TOTO23 FOREIGN KEY (service_code) REFERENCES services(service_code);
+    
+ALTER TABLE orders 
+	ADD CONSTRAINT fk_orders_trips FOREIGN KEY (trip_code) REFERENCES trips(trip_code),
+    ADD CONSTRAINT fk_orders_client FOREIGN KEY (client_id) REFERENCES clients(client_id);
+    
 
 /* INSERTION DU JEU D'ESSAI */
 
@@ -192,8 +227,35 @@ VALUES
 (4, 5);
 
 
+INSERT INTO sales 
+(com_code, com_name, com_password) 
+VALUES 
+('BA201', 'Berthier Aline', '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'),
+('NJ247', 'Neymar Jean', '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'),
+('PJ714', 'Paute Jessie', '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'),
+('PM654', 'Poglio Marcel', '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'),
+('YT023', 'Yoyo Tata', '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi');
 
-select * from cities 
-join countries on cities.country_code = countries.country_code
+
+
+
+
+INSERT INTO clients 
+(com_code, client_lastname, client_firstname, client_email, client_phone, client_added, client_password) 
+VALUES 
+('BA201', 'Dupont', 'Ernest', 'a@a.fr', 	'0102030405', NOW(), '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'), 
+('NJ247', 'Dupond', 'Louis', 'b@b.fr', 		'0203040506', NOW(), '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'), 
+('PJ714', 'Martin', 'Léo', 'c@c.fr', 	 	'0312345678', NOW(), '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'), 
+('PM654', 'Devoldère', 'Mickaël', 'd@d.fr', '0678963214', NOW(), '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi'), 
+('YT023', 'Ben', 'Joe', 'e@e.fr', 			'0698741235', NOW(), '$2y$10$OpUTjAUsVuKtCstwAq5DeOVWPgofb2d2v.tsQuUCIgezmBqiv4fEi');
+
+
+INSERT INTO orders
+(trip_code, client_id, order_quantity, order_paid)
+VALUES 
+(1, 5, 2, 1),
+(2, 5, 3, 0),
+(3, 1, 2, 1);
+
 
 
